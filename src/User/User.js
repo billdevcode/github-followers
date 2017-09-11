@@ -1,24 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Search from '../Search'
+import Profile from '../Profile'
+import Followers from '../Followers'
+import './User.css'
 
 class User extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user: '',
+        this._submitUsername = this._submitUsername.bind(this);
+        this.state = { 
+            user: null,
+            followers: null,
+            followersCount: null,
             isLoading: false,
             error: ''
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.username !== this.props.username) {
-            this._getUserData(nextProps.username);
-        }
+    _submitUsername (e) {
+        e.preventDefault();
+        const username = e.currentTarget.username.value;
+        this._getUserData (username);
+        this._getFollowersData(username);
     }
-    
+
+    _isLoadingUser () {
+        this.setState({
+            user: '',
+            isLoading: true,
+            error: ''
+        });
+    }
+
     _getUserData (username) {
-        if (!username) { return null; }
-        this._isLoading();
+        if (username === null) { return null; }
+        this._isLoadingUser();
 
         const url = `https://api.github.com/users/${username}`;
             return fetch(url)
@@ -29,7 +45,13 @@ class User extends Component {
                 return response.json();
             })
             .then(user => {
-                this._setUser(user);
+                this._setUser({
+                    login: user.login,
+                    avatarUrl: user.avatar_url,
+                    htmlUrl: user.html_url,
+                    name: user.name,
+                    followersCount: user.followers
+                });
             })
             .catch(error => {
                 console.warn(error);
@@ -37,39 +59,77 @@ class User extends Component {
             });
     }
 
-    _isLoading () {
-        this.setState({
-            user: '',            
+    _setUser (user) {
+        this.setState({ 
+            user,
+            followersCount: user.followersCount,
+            isLoading: false
+        });
+    }
+
+    _isLoadingFollowers () {
+        this.setState({ 
+            followers: null,
             isLoading: true,
             error: ''
         });
     }
 
-    _setUser (user) {
+    _getFollowersData (username) {
+        if (!username) { return null; }
+        this._isLoadingFollowers();
+
+        const url = `https://api.github.com/users/${username}/followers?per_page=100&page=1`;
+        return fetch(url)
+        .then(response => {
+            if (response.status >= 400) {
+                throw new Error("Bad response from server");
+        }
+            return response.json();
+        })
+        .then(followers => {
+            const followersList = followers.map(follower => {
+                return {
+                    login: follower.login,
+                    avatarUrl: follower.avatar_url,
+                    htmlUrl: follower.html_url
+                }
+            })
+            this._setFollowers (followersList);
+        })
+        .catch(error => {
+            console.warn(error);
+        });
+    }
+
+    _setFollowers (followers) {
         this.setState({ 
-            user,
+            followers,
             isLoading: false
         });
     }
 
-    render () {  
-        const { user, isLoading, error } = this.state;
-        if (error) { return (<p>Error - cannot find user</p>); }
-        if (isLoading) { return (<p>Loading user information</p>); }
-        if (!user) { return null; }      
+    render() {
+        const { user, followers, isLoading, error, followersCount } = this.state
+
+        if (isLoading && !error) { return <p className='User-loading'>Loading data</p> }
+
         return (
             <div className='User'>
-                <a href={user.html_url}>
-                    <img className='User-image' src={user.avatar_url} alt='user avatar'/>
-                </a>
-                <h3>{user.name}</h3>
-                <a href={user.html_url}>
-                    <p>{user.login}</p>
-                </a>
-                <p>Followers: {user.followers}</p>
+                <aside style={error || user === null ? {width: '100%', padding: 0} : null }>
+                    <header>
+                        <h1>GitHub Followers</h1>    
+                    </header>
+                    <Search submit={this._submitUsername} />
+                    <Profile user={user} />
+                    {error && <p style={{ color: 'red' }}>Error loading user or user does not exist</p>}
+                </aside>
+                <main>
+                    <Followers followers={followers} count={followersCount} />
+                </main>
             </div>
-        );
+        )
     }
 }
 
-export default User;
+export default User

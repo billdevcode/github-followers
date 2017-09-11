@@ -1,16 +1,16 @@
-.UserLayout {
+.User {
     display: flex;
     min-height: 100vh;
     position: relative;
 }
 
 @media(max-width: 720px) {
-    .UserLayout {
+    .User {
         display: block;
     }
 }
 
-.UserLayout aside {
+.User aside {
     position: fixed;
     height: 100vh;
     display: flex;
@@ -21,10 +21,11 @@
     min-width: 200px;
     padding: 10px;    
     transition: all 0.3s;
+    border-right: 2px solid silver;
 }
 
 @media(max-width: 720px) {
-    .UserLayout aside {
+    .User aside {
         position: static;
         width: 100%;
         min-height: 100vh;
@@ -33,7 +34,7 @@
     }
 }
 
-.UserLayout main {
+.User main {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -44,10 +45,18 @@
 }
 
 @media(max-width: 720px) {
-    .UserLayout main {
+    .User main {
         margin-left: 0;
         padding: 0;
     }
+}
+
+.User-error,
+.User-loading {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .Search-searchbox {
@@ -72,12 +81,12 @@
     background-color:#2061ca;    
 }
 
-.User {
+.Profile {
     max-width: 100%;    
 }
 
-.User-image {
-    max-width: 300px;
+.Profile-image {
+    max-width: 250px;
     width: 100%;
     margin-top: 20px; 
     border-radius: 8%;
@@ -100,7 +109,7 @@
 }
 
 .Follower-image {
-    max-width: 100%;
+    max-width: 180px;
     width: 100%;
     border-radius: 50%;
 }
