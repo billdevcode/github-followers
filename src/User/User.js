@@ -1,18 +1,20 @@
-import React, { Component } from 'react'
-import Search from '../Search'
-import Profile from '../Profile'
-import Followers from '../Followers'
-import './User.css'
+import React, { Component } from 'react';
+import Search from '../Search';
+import Profile from '../Profile';
+import Followers from '../Followers';
+import './User.css';
 
 class User extends Component {
     constructor(props) {
         super(props);
         this._submitUsername = this._submitUsername.bind(this);
+        this._getMoreFollowers = this._getMoreFollowers.bind(this);
         this.state = { 
             user: null,
             followers: null,
             followersCount: null,
             isLoading: false,
+            page: 2,
             error: ''
         };
     }
@@ -93,8 +95,8 @@ class User extends Component {
                     login: follower.login,
                     avatarUrl: follower.avatar_url,
                     htmlUrl: follower.html_url
-                }
-            })
+                };
+            });
             this._setFollowers (followersList);
         })
         .catch(error => {
@@ -109,11 +111,42 @@ class User extends Component {
         });
     }
 
+    _getMoreFollowers () {
+        const { login: username } = this.state.user
+        const { page } = this.state
+        if (!username) { return null; }
+
+        const url = `https://api.github.com/users/${username}/followers?per_page=100&page=${page}`;
+        return fetch(url)
+        .then(response => {
+            if (response.status >= 400) {
+                throw new Error("Bad response from server");
+        }
+            return response.json();
+        })
+        .then(followers => {
+            const followersList = followers.map(follower => {
+                return {
+                    login: follower.login,
+                    avatarUrl: follower.avatar_url,
+                    htmlUrl: follower.html_url
+                };
+            });
+            this.setState({ 
+                followers: [...this.state.followers, ...followersList],
+                page: this.state.page + 1,
+                isLoading: false
+            });
+        })
+        .catch(error => {
+            console.warn(error);
+        });
+    }
+
     render() {
-        const { user, followers, isLoading, error, followersCount } = this.state
-
-        if (isLoading && !error) { return <p className='User-loading'>Loading data</p> }
-
+        const { user, followers, isLoading, error, followersCount } = this.state;
+        const loadMore = followers && user && followersCount && followersCount > followers.length;
+        if (isLoading && !error) { return (<p className='User-loading'>Loading data</p>); }
         return (
             <div className='User'>
                 <aside style={error || user === null ? {width: '100%', padding: 0} : null }>
@@ -125,11 +158,14 @@ class User extends Component {
                     {error && <p style={{ color: 'red' }}>Error loading user or user does not exist</p>}
                 </aside>
                 <main>
-                    <Followers followers={followers} count={followersCount} />
+                    <Followers followers={followers} />
+                    {loadMore && <button className='Followers-loadMore' 
+                        onClick={this._getMoreFollowers}>Load more
+                    </button>}
                 </main>
             </div>
         )
     }
 }
 
-export default User
+export default User;

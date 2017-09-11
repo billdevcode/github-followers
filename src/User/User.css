@@ -17,8 +17,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 200px;
-    min-width: 200px;
+    width: 250px;
+    min-width: 250px;
     padding: 10px;    
     transition: width 0.3s;
     border-right: 2px solid silver;
@@ -40,7 +40,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 220px;
+    margin-left: 272px;
     padding: 10px;    
 }
 
@@ -66,8 +66,7 @@
     outline: none;
 }
 
-.Search-submitButton,
-.Followers-loadMore {
+.Search-submitButton {
     position:relative;
     padding:6px 15px;
     left:-8px;
@@ -75,9 +74,22 @@
     background-color:#207cca;
     color:#fafafa;
     cursor: pointer;
+    outline: none;
 }
 
-.Search-submitButton:hover {
+.Followers-loadMore {
+    width: 200px;
+    margin: 30px;
+    padding:6px 15px;
+    border:2px solid #207cca;
+    background-color:#207cca;
+    color:#fafafa;
+    cursor: pointer;
+    outline: none;
+}
+
+.Search-submitButton:hover,
+.Followers-loadMore:hover {
     background-color:#2061ca;    
 }
 
