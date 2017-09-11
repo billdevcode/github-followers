@@ -1,0 +1,106 @@
+.UserLayout {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+@media(max-width: 720px) {
+    .UserLayout {
+        display: block;
+    }
+}
+
+.UserLayout aside {
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    min-width: 200px;
+    padding: 10px;    
+    transition: all 0.3s;
+}
+
+@media(max-width: 720px) {
+    .UserLayout aside {
+        position: static;
+        width: 100%;
+        min-height: 100vh;
+        height: 100%;
+        padding: 0;
+    }
+}
+
+.UserLayout main {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 220px;
+    padding: 10px;    
+}
+
+@media(max-width: 720px) {
+    .UserLayout main {
+        margin-left: 0;
+        padding: 0;
+    }
+}
+
+.Search-searchbox {
+    padding:8px 0;
+    background:rgba(50, 50, 50, 0.2);
+    border:0px solid #dbdbdb;
+    text-align: center;
+    outline: none;
+}
+
+.Search-submitButton {
+    position:relative;
+    padding:6px 15px;
+    left:-8px;
+    border:2px solid #207cca;
+    background-color:#207cca;
+    color:#fafafa;
+    cursor: pointer;
+}
+
+.Search-submitButton:hover {
+    background-color:#2061ca;    
+}
+
+.User {
+    max-width: 100%;    
+}
+
+.User-image {
+    max-width: 300px;
+    width: 100%;
+    margin-top: 20px; 
+    border-radius: 8%;
+}
+
+.Followers {
+    max-width: 100%;
+}
+
+.Followers-wrapper {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+.Follower {
+    max-width: 20%;
+    width: 20%;
+    padding: 10px;
+}
+
+.Follower-image {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
