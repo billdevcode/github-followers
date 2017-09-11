@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Follower = ({ avatarUrl, githubUrl }) => {
     return (
@@ -7,7 +7,7 @@ const Follower = ({ avatarUrl, githubUrl }) => {
                 <img className='Follower-image' src={avatarUrl} alt='follower avatar'/>
             </a>
         </div>
-    )
-}
+    );
+};
 
-export default Follower
+export default Follower;

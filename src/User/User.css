@@ -20,7 +20,7 @@
     width: 200px;
     min-width: 200px;
     padding: 10px;    
-    transition: all 0.3s;
+    transition: width 0.3s;
     border-right: 2px solid silver;
 }
 
@@ -51,7 +51,6 @@
     }
 }
 
-.User-error,
 .User-loading {
     height: 100vh;
     display: flex;
@@ -67,7 +66,8 @@
     outline: none;
 }
 
-.Search-submitButton {
+.Search-submitButton,
+.Followers-loadMore {
     position:relative;
     padding:6px 15px;
     left:-8px;

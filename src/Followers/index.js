@@ -1,3 +1,3 @@
-import Followers from './Followers'
+import Followers from './Followers';
 
-export default Followers
+export default Followers;

@@ -1,7 +1,7 @@
 import React from 'react';
-import Follower from '../Follower'
+import Follower from '../Follower';
 
-const Followers = ({ followers, count }) => {
+const Followers = ({ followers }) => {
     if (!followers) { return null; }
     
     return (
@@ -16,6 +16,6 @@ const Followers = ({ followers, count }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Followers;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Search = ({ submit }) => {
     return (
@@ -8,7 +8,7 @@ const Search = ({ submit }) => {
                 <input className='Search-submitButton' type='submit' />
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default Search
+export default Search;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Profile = ({ user }) => {
     if (!user) { return null }
-    const { htmlUrl, avatarUrl, name, login, followersCount } = user
+    const { htmlUrl, avatarUrl, name, login, followersCount } = user;
     
     return (
         <div className='Profile'>
@@ -16,6 +16,6 @@ const Profile = ({ user }) => {
             <p>Followers: {followersCount.toLocaleString()}</p>
         </div>
     );
-}
+};
 
 export default Profile;
