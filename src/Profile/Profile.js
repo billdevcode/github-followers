@@ -7,7 +7,7 @@ const Profile = ({ user }) => {
     return (
         <div className='Profile'>
             <a href={htmlUrl}>
-                <img className='Profile-image' src={avatarUrl} alt='user avatar'/>
+                <img className='Profile-image' src={avatarUrl} alt='GitHub User Profile Avatar'/>
             </a>
             <h3>{name}</h3>
             <a href={htmlUrl}>

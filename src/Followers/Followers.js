@@ -1,13 +1,13 @@
 import React from 'react';
 import Follower from '../Follower';
 
-const Followers = ({ followers }) => {
-    if (!followers) { return null; }
+const Followers = ({ listOfFollowers }) => {
+    if (!listOfFollowers) { return null; }
     
     return (
         <div className='Followers'>
             <div className='Followers-wrapper'>
-                {followers && followers.map((follower, idx) => {
+                {listOfFollowers && listOfFollowers.map((follower, idx) => {
                     const { avatarUrl, htmlUrl } = follower;
                     return (
                         <Follower key={idx} avatarUrl={avatarUrl} githubUrl={htmlUrl} />

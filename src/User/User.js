@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Search from '../Search';
 import Profile from '../Profile';
 import Followers from '../Followers';
+import { fetchGitHubData } from '../helpers'
 import './User.css';
 
 class User extends Component {
@@ -11,10 +12,10 @@ class User extends Component {
         this._getMoreFollowers = this._getMoreFollowers.bind(this);
         this.state = { 
             user: null,
-            followers: null,
+            listOfFollowers: [],
             followersCount: null,
             isLoading: false,
-            page: 2,
+            page: 1,
             error: ''
         };
     }
@@ -35,79 +36,65 @@ class User extends Component {
     }
 
     _getUserData (username) {
-        if (username === null) { return null; }
+        if (!username) { return null; }
         this._isLoadingUser();
 
-        const url = `https://api.github.com/users/${username}`;
-            return fetch(url)
-            .then(response => {
-                if (response.status >= 400) {
-                    throw new Error("Bad response from server");
-            }
-                return response.json();
-            })
-            .then(user => {
-                this._setUser({
-                    login: user.login,
-                    avatarUrl: user.avatar_url,
-                    htmlUrl: user.html_url,
-                    name: user.name,
-                    followersCount: user.followers
-                });
-            })
-            .catch(error => {
-                console.warn(error);
-                this.setState({ error });           
-            });
+        fetchGitHubData(username).then(user => {
+            this._setUser(user);
+        }).catch(error => {
+            console.warn(error);
+            this.setState({ error });           
+        });
     }
 
     _setUser (user) {
+        const currentUser = {
+            login: user.login,
+            avatarUrl: user.avatar_url,
+            htmlUrl: user.html_url,
+            name: user.name,
+            followersCount: user.followers
+        }
         this.setState({ 
-            user,
-            followersCount: user.followersCount,
+            user: currentUser,
+            followersCount: currentUser.followersCount,
             isLoading: false
         });
     }
 
     _isLoadingFollowers () {
         this.setState({ 
-            followers: null,
+            listOfFollowers: [],
             isLoading: true,
             error: ''
         });
+    }
+
+    _mapFollowers (follower) {
+        return {
+            login: follower.login,
+            avatarUrl: follower.avatar_url,
+            htmlUrl: follower.html_url
+        }
     }
 
     _getFollowersData (username) {
         if (!username) { return null; }
         this._isLoadingFollowers();
 
-        const url = `https://api.github.com/users/${username}/followers?per_page=100&page=1`;
-        return fetch(url)
-        .then(response => {
-            if (response.status >= 400) {
-                throw new Error("Bad response from server");
-        }
-            return response.json();
-        })
-        .then(followers => {
-            const followersList = followers.map(follower => {
-                return {
-                    login: follower.login,
-                    avatarUrl: follower.avatar_url,
-                    htmlUrl: follower.html_url
-                };
-            });
+        fetchGitHubData(username, 1).then(followers => {
+            const followersList = followers.map(this._mapFollowers);
             this._setFollowers (followersList);
-        })
-        .catch(error => {
+        }).catch(error => {
             console.warn(error);
         });
     }
 
     _setFollowers (followers) {
         this.setState({ 
-            followers,
-            isLoading: false
+            listOfFollowers: [...this.state.listOfFollowers, ...followers],
+            page: this.state.page + 1,            
+            isLoading: false,
         });
     }
 
@@ -116,37 +103,19 @@ class User extends Component {
         const { page } = this.state
         if (!username) { return null; }
 
-        const url = `https://api.github.com/users/${username}/followers?per_page=100&page=${page}`;
-        return fetch(url)
-        .then(response => {
-            if (response.status >= 400) {
-                throw new Error("Bad response from server");
-        }
-            return response.json();
-        })
-        .then(followers => {
-            const followersList = followers.map(follower => {
-                return {
-                    login: follower.login,
-                    avatarUrl: follower.avatar_url,
-                    htmlUrl: follower.html_url
-                };
-            });
-            this.setState({ 
-                followers: [...this.state.followers, ...followersList],
-                page: this.state.page + 1,
-                isLoading: false
-            });
-        })
-        .catch(error => {
+        fetchGitHubData(username, page).then(followers => {
+            const followersList = followers.map(this._mapFollowers);
+            this._setFollowers (followersList);            
+        }).catch(error => {
             console.warn(error);
         });
     }
 
     render() {
-        const { user, followers, isLoading, error, followersCount } = this.state;
-        const loadMore = followers && user && followersCount && followersCount > followers.length;
+        const { user, listOfFollowers, isLoading, error, followersCount } = this.state;
+        const loadMore = listOfFollowers.length > 0 && user && followersCount && followersCount > listOfFollowers.length;
         if (isLoading && !error) { return (<p className='User-loading'>Loading data</p>); }
+
         return (
             <div className='User'>
                 <aside style={error || user === null ? {width: '100%', padding: 0} : null }>
@@ -158,7 +127,7 @@ class User extends Component {
                     {error && <p style={{ color: 'red' }}>Error loading user or user does not exist</p>}
                 </aside>
                 <main>
-                    <Followers followers={followers} />
+                    <Followers listOfFollowers={listOfFollowers} />
                     {loadMore && <button className='Followers-loadMore' 
                         onClick={this._getMoreFollowers}>Load more
                     </button>}
