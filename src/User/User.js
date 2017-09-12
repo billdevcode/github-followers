@@ -124,7 +124,7 @@ class User extends Component {
                     </header>
                     <Search submit={this._submitUsername} />
                     <Profile user={user} />
-                    {error && <p className='User-errorMessage'>Error: user does not exist or exceeded API limit</p>}
+                    {error && <p className='User-errorMessage'>Error: user does not exist or exceeded API limit (60/hour)</p>}
                 </aside>
                 <main>
                     <Followers listOfFollowers={listOfFollowers} userFound={userFound} />

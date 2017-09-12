@@ -26,7 +26,7 @@ This project is to create a service that allows for a user to search for a GitHu
 
 ## Trade-offs
 
-- No authentication - not secure but for our purposes, it should be fine (limit is 60/hour)
+- No authentication - not secure but for our purposes, it should be fine (API limit is 60/hour)
 - All CSS styles are located in `/src/User/User.css` - usually we separate them but for our purposes, it should be fine
 
 ## Live Site
