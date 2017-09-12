@@ -58,14 +58,13 @@ class User extends Component {
         this.setState({ 
             user: currentUser,
             followersCount: currentUser.followersCount,
-            isLoading: false
+            page: 1
         });
     }
 
     _isLoadingFollowers () {
         this.setState({ 
             listOfFollowers: [],
-            isLoading: true,
             error: ''
         });
     }

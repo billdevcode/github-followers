@@ -6,7 +6,7 @@ const Search = ({ submit }) => {
         <div className='Search'>
             <form onSubmit={submit}>
                 <input className='Search-searchbox' type='text' name='username' placeholder='Search user' required autoFocus />
-                <input className='Search-submitButton' type='submit' />
+                <input className='Search-submitButton' type='submit' value='Submit' />
             </form>
         </div>
     );
