@@ -17,10 +17,10 @@ This project is to create a service that allows for a user to search for a GitHu
 
 ## Tools
 
-- Bootstrapped with minimal codes using [create-react-app](https://github.com/facebookincubator/create-react-app). Mainly `App`, `/src/index` and `registerServiceWorker` files.
+- Bootstrapped with minimal codes using <a href="https://github.com/facebookincubator/create-react-app" target="_blank">create-react-app</a>. Mainly `App`, `/src/index` and `registerServiceWorker` files.
 - ReactJS - the cool stuff are in `/src`
 - Components tested with Jest/Enzyme (`yarn test`)
-- Hosted on Heroku (free hosting but takes a while to load) - https://github-followers-avatar.herokuapp.com/ 
+- Hosted on Heroku (free hosting but takes a while to load) - <a href="https://github-followers-avatar.herokuapp.com/" target="_blank">https://github-followers-avatar.herokuapp.com/</a> 
 - Responsive across devices
 - Cross-browser tested
 
@@ -31,4 +31,4 @@ This project is to create a service that allows for a user to search for a GitHu
 
 ## Live Site
 
-#### https://github-followers-avatar.herokuapp.com/
+#### <a href="https://github-followers-avatar.herokuapp.com/" target="_blank">https://github-followers-avatar.herokuapp.com/</a>

@@ -8,11 +8,11 @@ const Profile = ({ user }) => {
 
     return (
         <div className='Profile'>
-            <a href={htmlUrl}>
+            <a href={htmlUrl} target='_blank'>
                 <img className='Profile-image' src={avatarUrl} alt='GitHub User Profile Avatar'/>
             </a>
             <h3>{name}</h3>
-            <a href={htmlUrl}>
+            <a href={htmlUrl} target='_blank'>
                 <p>{login}</p>
             </a>
             <p>Followers: {count}</p>
