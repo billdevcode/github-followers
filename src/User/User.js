@@ -11,7 +11,7 @@ class User extends Component {
         this._submitUsername = this._submitUsername.bind(this);
         this._getMoreFollowers = this._getMoreFollowers.bind(this);
         this.state = { 
-            user: null,
+            user: undefined,
             listOfFollowers: [],
             followersCount: 0,
             isLoading: false,
@@ -29,7 +29,7 @@ class User extends Component {
 
     _isLoadingUser () {
         this.setState({
-            user: undefined,
+            user: null,
             isLoading: true,
             error: ''
         });
@@ -94,7 +94,7 @@ class User extends Component {
         this.setState({ 
             listOfFollowers: [...this.state.listOfFollowers, ...followers],
             page: this.state.page + 1,            
-            isLoading: false,
+            isLoading: false
         });
     }
 
@@ -118,7 +118,7 @@ class User extends Component {
 
         return (
             <div className='User'>
-                <aside style={error || user === null ? {width: '100%', padding: 0} : null }>
+                <aside style={error || user === undefined ? {width: '100%', padding: 0} : null }>
                     <header>
                         <h1>GitHub Followers</h1>    
                     </header>

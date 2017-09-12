@@ -64,28 +64,28 @@
     border:0px solid #dbdbdb;
     text-align: center;
     outline: none;
+    box-shadow: none;
 }
 
-.Search-submitButton {
-    position:relative;
-    padding:6px 15px;
-    left:-8px;
+.Search-submitButton,
+.Followers-loadMore {
+    padding:6px 15px;    
     border:2px solid #207cca;
     background-color:#207cca;
     color:#fafafa;
     cursor: pointer;
     outline: none;
+}   
+
+.Search-submitButton {
+    position:relative;
+    left:-8px;
+
 }
 
 .Followers-loadMore {
     width: 200px;
     margin: 30px;
-    padding:6px 15px;
-    border:2px solid #207cca;
-    background-color:#207cca;
-    color:#fafafa;
-    cursor: pointer;
-    outline: none;
 }
 
 .Search-submitButton:hover,
@@ -109,8 +109,8 @@
 
 .Followers-wrapper {
     display: flex;
-    flex-flow: wrap;
-    justify-content: space-around;
+    flex-flow: wrap; 
+    justify-content: space-evenly;
 }
 
 .Follower {
@@ -122,4 +122,5 @@
 .Follower-image {
     max-width: 180px;
     width: 100%;
+    box-shadow: 3px 3px 15px 0px #000;
 }
