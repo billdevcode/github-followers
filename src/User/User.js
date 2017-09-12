@@ -123,7 +123,7 @@ class User extends Component {
                     </header>
                     <Search submit={this._submitUsername} />
                     <Profile user={user} />
-                    {error && <p style={{ color: 'red' }}>Error loading user or user does not exist</p>}
+                    {error && <p style={{ color: 'red' }}>Error: user does not exist or exceeded API limit</p>}
                 </aside>
                 <main>
                     <Followers listOfFollowers={listOfFollowers} />
