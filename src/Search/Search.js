@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const Search = ({ submit }) => {
     return (
@@ -10,5 +11,9 @@ const Search = ({ submit }) => {
         </div>
     );
 };
+
+Search.propTypes = {
+    submit: PropTypes.func
+}
 
 export default Search;

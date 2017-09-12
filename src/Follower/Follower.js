@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const Follower = ({ avatarUrl, githubUrl }) => {
     return (
@@ -9,5 +10,10 @@ const Follower = ({ avatarUrl, githubUrl }) => {
         </div>
     );
 };
+
+Follower.propTypes = {
+    avatarUrl: PropTypes.string,
+    githubUrl: PropTypes.string,
+}
 
 export default Follower;

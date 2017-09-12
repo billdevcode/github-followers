@@ -13,7 +13,7 @@ class User extends Component {
         this.state = { 
             user: null,
             listOfFollowers: [],
-            followersCount: null,
+            followersCount: 0,
             isLoading: false,
             page: 1,
             error: ''
@@ -29,7 +29,7 @@ class User extends Component {
 
     _isLoadingUser () {
         this.setState({
-            user: '',
+            user: undefined,
             isLoading: true,
             error: ''
         });
@@ -54,7 +54,7 @@ class User extends Component {
             htmlUrl: user.html_url,
             name: user.name,
             followersCount: user.followers
-        }
+        };
         this.setState({ 
             user: currentUser,
             followersCount: currentUser.followersCount,
@@ -75,7 +75,7 @@ class User extends Component {
             login: follower.login,
             avatarUrl: follower.avatar_url,
             htmlUrl: follower.html_url
-        }
+        };
     }
 
     _getFollowersData (username) {
@@ -100,7 +100,7 @@ class User extends Component {
 
     _getMoreFollowers () {
         const { login: username } = this.state.user
-        const { page } = this.state
+        const { page } = this.state;
         if (!username) { return null; }
 
         fetchGitHubData(username, page).then(followers => {

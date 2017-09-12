@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import Follower from '../Follower';
 
 const Followers = ({ listOfFollowers }) => {
@@ -17,5 +18,9 @@ const Followers = ({ listOfFollowers }) => {
         </div>
     );
 };
+
+Followers.propTypes = {
+    listOfFollowers: PropTypes.array,
+}
 
 export default Followers;
