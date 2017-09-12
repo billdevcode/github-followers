@@ -23,6 +23,7 @@ This project is to create a service that allows for a user to search for a GitHu
 - Hosted on Heroku (free hosting but takes a while to load) - https://github-followers-avatar.herokuapp.com/ 
 - Responsive across devices
 - Cross-browser tested
+- No authentication - not secure but for our purposes, it should be fine (limit is 60/hour)
 
 ## Live Site
 
