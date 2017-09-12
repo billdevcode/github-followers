@@ -10,7 +10,7 @@ describe('<Followers />', () => {
     });
 
     it('renders a div with class Followers', () => {
-        const wrapper = shallow(<Followers listOfFollowers={[]} />);
+        const wrapper = shallow(<Followers listOfFollowers={[1]} userFound={true} />);
         expect(wrapper.find('.Followers')).toHaveClassName('Followers');        
     });
 });

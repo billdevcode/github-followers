@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import Follower from '../Follower';
 
-const Followers = ({ listOfFollowers }) => {
-    if (!listOfFollowers) { return null; }
+const Followers = ({ listOfFollowers, userFound }) => {
+    if (!userFound) { return null; }
+    if (listOfFollowers.length === 0) { return <p>This user has no followers</p>}
     
     return (
         <div className='Followers'>
@@ -21,6 +22,7 @@ const Followers = ({ listOfFollowers }) => {
 
 Followers.propTypes = {
     listOfFollowers: PropTypes.array,
+    userFound: PropTypes.bool
 }
 
 export default Followers;

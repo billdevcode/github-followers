@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 const Profile = ({ user }) => {
     if (!user) { return null }
     const { htmlUrl, avatarUrl, name, login, followersCount } = user;
-    var count = 0;
-    if (typeof followersCount === 'number') { count = followersCount.toLocaleString(); }
+    var count = Number(followersCount).toLocaleString(); 
 
     return (
         <div className='Profile'>

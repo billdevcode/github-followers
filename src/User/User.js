@@ -113,11 +113,12 @@ class User extends Component {
     render() {
         const { user, listOfFollowers, isLoading, error, followersCount } = this.state;
         const loadMore = listOfFollowers.length > 0 && user && followersCount && followersCount > listOfFollowers.length;
+        const userFound = Boolean(user)
         if (isLoading && !error) { return (<p className='User-loading'>Loading data</p>); }
 
         return (
             <div className='User'>
-                <aside style={error || user === undefined ? {width: '100%', padding: 0} : null }>
+                <aside className={error || user === undefined ? 'Aside-full' : null}>
                     <header>
                         <h1>GitHub Followers</h1>    
                     </header>
@@ -126,7 +127,7 @@ class User extends Component {
                     {error && <p className='User-errorMessage'>Error: user does not exist or exceeded API limit</p>}
                 </aside>
                 <main>
-                    <Followers listOfFollowers={listOfFollowers} />
+                    <Followers listOfFollowers={listOfFollowers} userFound={userFound} />
                     {loadMore && <button className='Followers-loadMore' 
                         onClick={this._getMoreFollowers}>Load more
                     </button>}
