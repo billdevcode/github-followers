@@ -1,3 +1,5 @@
+![github-followers-screenshot](./src/assets/github-followers-screenshot.png?raw=true)
+
 # GitHub Followers
 
 This project is to create a service that allows for a user to search for a GitHub username.
