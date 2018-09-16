@@ -2,7 +2,7 @@
 
 # GitHub Followers
 
-This project is to create a service that allows for a user to search for a GitHub username.
+React web application to use GitHub’s API and search for a user’s followers
 
 ## Installation
 - `git clone https://github.com/billdevcode/github-followers.git`
